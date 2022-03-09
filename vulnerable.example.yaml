@@ -5,7 +5,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vulnerable.example.com
-  namespace: falconlab
 spec:
   selector:
    matchLabels:
