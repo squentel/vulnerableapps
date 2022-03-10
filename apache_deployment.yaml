@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apache-deployment
+  name: nginx
   labels:
-    role: webserver
+    app: nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      role: webserver
+      app: nginx
   template:
     metadata:
       labels:
-        role: webserver
+        app: nginx
     spec:
       containers:
-      - name: frontend
-        image: httpd
+      - name: nginx
+        image: nginx
         ports:
         - containerPort: 80
