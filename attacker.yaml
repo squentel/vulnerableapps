@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cspovattacker
+  labels:
+    app.kubernetes.io/name: cspovattacker
+    app.kubernetes.io/part-of: crowdstrike-demo
+    app.kubernetes.io/created-by: crowdstrike
+spec:
+  selector:
+    matchLabels:
+      run: cspovattacker
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: cspovattacker
+        app.kubernetes.io/name: cspovattacker
+        app.kubernetes.io/part-of: crowdstrike-demo
+        app.kubernetes.io/created-by: crowdstrike
+      annotations:
+        sensor.falcon-system.crowdstrike.com/injection: enabled
+    spec:
+      containers:
+        - name: app
+          image: ubuntu:latest
+          imagePullPolicy: Always
+          # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          ports:
+            - containerPort: 80
+              name: payloaddelivery
+            - containerPort: 4444
+              name: c2
