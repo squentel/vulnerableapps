@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cspovshellshock
+  labels:
+    app.kubernetes.io/name: cspovshellshock
+    app.kubernetes.io/part-of: crowdstrike-demo
+    app.kubernetes.io/created-by: crowdstrike
+spec:
+  selector:
+    matchLabels:
+      run: cspovshellshock
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: cspovshellshock
+        app.kubernetes.io/name: cspovshellshock
+        app.kubernetes.io/part-of: crowdstrike-demo
+        app.kubernetes.io/created-by: crowdstrike
+      annotations:
+        sensor.falcon-system.crowdstrike.com/injection: enabled
+    spec:
+      containers:
+        - name: app
+          image: falconpioupiou/shellshock:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: web
