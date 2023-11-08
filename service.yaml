@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cspovshellshock
+  labels:
+    app.kubernetes.io/name: cspovshellshock
+    app.kubernetes.io/part-of: crowdstrike-demo
+    app.kubernetes.io/created-by: crowdstrike
+spec:
+  selector:
+    run: cspovshellshock
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
